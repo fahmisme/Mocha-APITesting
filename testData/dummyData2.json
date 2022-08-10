@@ -1,0 +1,14 @@
+{
+    "id": "2",
+    "firstName": "Michelle",
+    "lastName": "Laura",
+    "age": 40,
+    "occupation": "Writer",
+    "nationality": "Singapore",
+    "hobbies": [
+      "Read a mystery book"
+    ],
+    "gender": "FEMALE",
+    "createdDate": "2022-08-09T13:13:38.184Z",
+    "updatedDate": "2022-08-09T13:13:38.184Z"
+}

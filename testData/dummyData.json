@@ -1,0 +1,14 @@
+{
+    "id": "1",
+    "firstName": "Michelle",
+    "lastName": "Osborn",
+    "age": 38,
+    "occupation": "Lecture",
+    "nationality": "New Zealand",
+    "hobbies": [
+      "Read a romance book"
+    ],
+    "gender": "FEMALE",
+    "createdDate": "2022-08-09T13:13:38.184Z",
+    "updatedDate": "2022-08-09T13:13:38.184Z"
+}
