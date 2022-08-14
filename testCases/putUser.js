@@ -3,9 +3,6 @@ const chai = require('chai');
 const jsonSchema = chai.use(require('chai-json-schema'));
 const expect = chai.expect;
 const dataPutDummy = require('../testData/dummyPutData.js');
-const dataDummy = require('../testData/dummyData.json');
-const dataDummy2 = require('../testData/dummyData2.json');
-const dataSchema = require('../schemas/dataSchema.json');
 const putScenario = require('../scenarios/scene-put')
 
 describe(putScenario.testCase.description, async() => {
@@ -13,21 +10,18 @@ describe(putScenario.testCase.description, async() => {
 
     before(async() => {
         console.log('Preparing data..');
-    });
-    beforeEach(async() => {
         let dataDummy = require('../testData/dummyData.json')
         let response = await connectAPI.postData(dataDummy);
         console.log('Users 1 created');
-        let dataDummy2 = require('../testData/dummyData2.json')
-        response = await connectAPI.postData(dataDummy2);
-        console.log('Users 2 created');
         idData = response.body.id;
     });
-    afterEach(async() => {
+    // beforeEach(async() => {
+    // });
+    // afterEach(async() => {
+    // });
+    after(async() => {
         let response = await connectAPI.deleteData();
         expect(response.statusCode).to.equal(200);
-    });
-    after(async() => {
         console.log('Deleting all data..');
     });
     
@@ -43,14 +37,32 @@ describe(putScenario.testCase.description, async() => {
         expect(response.body).has.jsonSchema(jsonSchema);
 
         //chai-things and chai-like
-        expect(response.body.hobbies).contains.something.like('Charity')
+        expect(response.body.hobbies).contains.something.like('Read a newspaper at the 5 am')
     });
 
     it(putScenario.testCase.negative.case1, async () => {
-        let idInput = "b27581ce-0a73-4890-8d47";
-        let response = await connectAPI.getData(idInput);
+        let age = 0;
+        const dataPut = dataPutDummy.dummyPutData(idData, undefined, undefined, age);
+        let response = await connectAPI.putData(dataPut);
         expect(response.statusCode).to.not.equal(200);
-        expect(response.body.id).to.not.equal(idInput);
+        expect(response.body.errorCode).to.equal('ER-03');
+        expect(response.body.message).to.equal('you must specify data for firstname, lastName, age, occupation, nationality, hobbies (at least 1), and gender');
+    });
+
+    it(putScenario.testCase.negative.case2, async () => {
+        let hobbies = [];
+        const dataPut = dataPutDummy.dummyPutData(idData, undefined, undefined, undefined, hobbies);
+        let response = await connectAPI.putData(dataPut);
+        expect(response.statusCode).to.not.equal(200);
+        expect(response.body.errorCode).to.equal('ER-03');
+        expect(response.body.message).to.equal('you must specify data for firstname, lastName, age, occupation, nationality, hobbies (at least 1), and gender');
+    });
+
+    it(putScenario.testCase.negative.case3, async () => {
+        let idInput = "";
+        const dataPut = dataPutDummy.dummyPutData(idInput);
+        let response = await connectAPI.putData(dataPut);
+        expect(response.statusCode).to.not.equal(200);
         expect(response.body.errorCode).equal('ER-01');
         expect(response.body.message).equal('user not found');
     });

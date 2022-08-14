@@ -4,7 +4,7 @@
   "description": "Review pelajaran API Automation with chai,mocha,supertest,chai-things,chai-like,chai-json-schema,mochawesome",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/mocha/bin/_mocha testcases/**/*.js"
+    "test": "node node_modules/mocha/bin/_mocha testcases/**/*.js --reporter mochawesome --require mochawesome/register"
   },
   "author": "Fahmi Idris",
   "license": "ISC",
