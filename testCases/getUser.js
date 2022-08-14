@@ -2,9 +2,6 @@ const connectAPI = require('../connectAPI/connAPI');
 const chai = require('chai');
 const jsonSchema = chai.use(require('chai-json-schema'));
 const expect = chai.expect;
-const dataDummy = require('../testData/dummyData.json');
-const dataDummy2 = require('../testData/dummyData2.json');
-const dataSchema = require('../schemas/dataSchema.json');
 const getScenario = require('../scenarios/scene-get');
 
 chai.use(require('chai-like'));
@@ -15,21 +12,18 @@ describe(getScenario.testCase.description, async() => {
 
     before(async() => {
         console.log('Preparing data..');
-    });
-    beforeEach(async() => {
         let dataDummy = require('../testData/dummyData.json')
         let response = await connectAPI.postData(dataDummy);
         console.log('Users 1 created');
-        let dataDummy2 = require('../testData/dummyData2.json')
-        response = await connectAPI.postData(dataDummy2);
-        console.log('Users 2 created');
         idData = response.body.id;
     });
-    afterEach(async() => {
+    // beforeEach(async() => {
+    // });
+    // afterEach(async() => {
+    // });
+    after(async() => {
         let response = await connectAPI.deleteData();
         expect(response.statusCode).to.equal(200);
-    });
-    after(async() => {
         console.log('Deleting all data..');
     });
     
@@ -39,7 +33,7 @@ describe(getScenario.testCase.description, async() => {
         expect(response.body).has.jsonSchema(jsonSchema);
 
         //chai-things and chai-like
-        expect(response.body.hobbies).contains.something.like('Read a mystery book')
+        expect(response.body.hobbies).contains.something.like('Read a romance book')
     });
 
     it(getScenario.testCase.negative.case1, async () => {
