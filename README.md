@@ -1,6 +1,6 @@
 # Mocha-APITesting
 
-Fitur yang dikembangkan : 
+## Fitur yang dikembangkan 
 - GET User dengan assertion :
   1. Positif case : Get user dengan valid data id. 
   2. Negatif case : Get user dengan invalid data id.
@@ -18,5 +18,9 @@ Fitur yang dikembangkan :
  
 - Memanfaatkan fitur hook pada bagian before untuk POST data user. Dan after untuk menghapus data user.
 
-- Menggunakan mocha-awesome, untuk membuat report testing
+- Menggunakan mochawesome, untuk membuat report testing
 
+
+## Report dari Mochawesome
+
+<img width="959" alt="Screenshot 2022-08-30 203613" src="https://user-images.githubusercontent.com/106912197/187456620-a673fbae-150f-403b-8619-7cb12e4439b5.png">
